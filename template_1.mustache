@@ -1,0 +1,22 @@
+{
+  "ProcessTime": "{{#formatCurrentTime}}{{formatCurrentTime}}",
+  "Client_ID": "{{#getConfig}}metadata.clientAlias{{/getConfig}}",
+  "Users": [
+    {{#input.profiles}}
+    {
+      "idAlias": "{{#value.identities.YAHOO}}{{#first}}{{value.id}}{{/first}}{{/value.identities.YAHOO}}",
+      "Segments": [
+        {{#value.segmentMembership}}
+        {
+          "Segment_ID": "{{#segmentAlias}}{{key}}{{/segmentAlias}}",
+          "Status": "{{#formatSegmentStatus}}{{value.status}}{{/formatSegmentStatus}}",
+          "DateTime": "{{#formatTime}}{{value.lastQualificationTime}}{{/formatTime}}"
+        }
+        {{^value.last}},{{/value.last}}
+        {{/value.segmentMembership}}
+      ]
+    }
+    {{^last}},{{/last}}
+    {{/input.profiles}}
+  ]
+}
